@@ -1,0 +1,100 @@
+<Page
+    x:Class="NovReader.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    NavigationCacheMode="Required"
+    Background="{StaticResource AppBackgroundBrush}">
+
+    <Page.Resources>
+        <DataTemplate x:Key="NavItemTemplate">
+            <StackPanel Orientation="Horizontal" Height="48">
+                <FontIcon Glyph="{Binding Glyph}" FontSize="18" Width="48" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding Title}" FontSize="15" VerticalAlignment="Center" Margin="4,0,0,0"/>
+            </StackPanel>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid>
+        <!-- 手机竖屏：面板浮在内容上；宽屏（平板/桌面/横屏）：常驻窄条图标栏 -->
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="WidthStates">
+                <VisualState x:Name="Narrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ShellSplit.DisplayMode" Value="Overlay"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Wide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ShellSplit.DisplayMode" Value="CompactOverlay"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- ==================== 顶栏 ==================== -->
+        <Grid Grid.Row="0" Height="48" Background="{StaticResource ChromeBrush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="HamburgerButton" Grid.Column="0" Style="{StaticResource IconButtonStyle}"
+                    Content="&#xE700;" AutomationProperties.Name="导航菜单"
+                    ToolTipService.ToolTip="菜单" Click="Hamburger_Click"/>
+
+            <TextBlock x:Name="HeaderTitleText" Grid.Column="1" Text="书架"
+                       Margin="4,0,8,0" VerticalAlignment="Center"
+                       Style="{StaticResource PivotTitleTextStyle}"/>
+
+            <TextBlock x:Name="HeaderSubtitleText" Grid.Column="2"
+                       VerticalAlignment="Center" Margin="0,1,8,0"
+                       Style="{StaticResource CaptionTextStyle}"/>
+
+            <Button x:Name="HeaderSearchButton" Grid.Column="3" Style="{StaticResource IconButtonStyle}"
+                    Content="&#xE721;" AutomationProperties.Name="快速搜索"
+                    ToolTipService.ToolTip="搜索" Click="HeaderSearch_Click"/>
+        </Grid>
+
+        <!-- ==================== 汉堡菜单 + 内容 ==================== -->
+        <SplitView x:Name="ShellSplit" Grid.Row="1" DisplayMode="Overlay"
+                   OpenPaneLength="240" CompactPaneLength="48"
+                   PaneBackground="{StaticResource ChromeBrush}">
+            <SplitView.Pane>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <ListView x:Name="NavList" Grid.Row="0" SelectionMode="Single"
+                              IsItemClickEnabled="True" ItemClick="Nav_ItemClick"
+                              ItemTemplate="{StaticResource NavItemTemplate}"
+                              ItemContainerStyle="{StaticResource NavListItemStyle}"
+                              AutomationProperties.Name="主导航"/>
+
+                    <ListView x:Name="NavFooterList" Grid.Row="1" SelectionMode="Single"
+                              IsItemClickEnabled="True" ItemClick="Nav_ItemClick"
+                              ItemTemplate="{StaticResource NavItemTemplate}"
+                              ItemContainerStyle="{StaticResource NavListItemStyle}"
+                              BorderBrush="{StaticResource DividerBrush}" BorderThickness="0,1,0,0"
+                              AutomationProperties.Name="设置与调试"/>
+                </Grid>
+            </SplitView.Pane>
+
+            <Frame x:Name="ContentFrame"/>
+        </SplitView>
+    </Grid>
+</Page>

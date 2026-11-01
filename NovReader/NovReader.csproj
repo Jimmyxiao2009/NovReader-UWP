@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration><Platform Condition=" '$(Platform)' == '' ">x64</Platform>
+    <ProjectGuid>{D6A1C726-4C44-4F41-9D0A-8B7F7D4A0A01}</ProjectGuid><OutputType>AppContainerExe</OutputType><AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NovReader</RootNamespace><AssemblyName>NovReader</AssemblyName><DefaultLanguage>zh-CN</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier><TargetPlatformVersion>10.0.15063.0</TargetPlatformVersion><TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion><WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion><FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview><ApplicationManifest>Package.appxmanifest</ApplicationManifest>
+    <AppxPackageSigningEnabled>false</AppxPackageSigningEnabled><RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'"><DebugSymbols>true</DebugSymbols><OutputPath>bin\x64\Debug\</OutputPath><DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants><DebugType>full</DebugType><PlatformTarget>x64</PlatformTarget></PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'"><DebugSymbols>true</DebugSymbols><OutputPath>bin\x86\Debug\</OutputPath><DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants><DebugType>full</DebugType><PlatformTarget>x86</PlatformTarget></PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'"><DebugSymbols>true</DebugSymbols><OutputPath>bin\ARM\Debug\</OutputPath><DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants><DebugType>full</DebugType><PlatformTarget>ARM</PlatformTarget></PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'"><OutputPath>bin\ARM\Release\</OutputPath><DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants><Optimize>true</Optimize><DebugType>pdbonly</DebugType><PlatformTarget>ARM</PlatformTarget><UseDotNetNativeToolchain>true</UseDotNetNativeToolchain></PropertyGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs"><DependentUpon>App.xaml</DependentUpon></Compile>
+    <Compile Include="MainPage.xaml.cs"><DependentUpon>MainPage.xaml</DependentUpon></Compile>
+    <Compile Include="Models\BookSource.cs" />
+    <Compile Include="Models\Book.cs" />
+    <Compile Include="Models\Chapter.cs" />
+    <Compile Include="Models\ShelfBook.cs" />
+    <Compile Include="Models\ReadingSettings.cs" />
+    <Compile Include="Models\TransferSettings.cs" />
+    <Compile Include="Services\AppState.cs" />
+    <Compile Include="Services\Nav.cs" />
+    <Compile Include="Services\Dialogs.cs" />
+    <Compile Include="Services\ReaderLauncher.cs" />
+    <Compile Include="Services\ThemeManager.cs" />
+    <Compile Include="Services\SourceStore.cs" />
+    <Compile Include="Services\ShelfStore.cs" />
+    <Compile Include="Services\SettingsStore.cs" />
+    <Compile Include="Services\ChapterCache.cs" />
+    <Compile Include="Services\TocCache.cs" />
+    <Compile Include="Services\SearchHistoryStore.cs" />
+    <Compile Include="Services\MultiSearch.cs" />
+    <Compile Include="Services\SearchRanking.cs" />
+    <Compile Include="Services\SourceHealth.cs" />
+    <Compile Include="Services\SourceHealthStore.cs" />
+    <Compile Include="Services\FontCatalog.cs" />
+    <Compile Include="Services\DownloadService.cs" />
+    <Compile Include="Services\ExportService.cs" />
+    <Compile Include="Services\Legado\LegadoJson.cs" />
+    <Compile Include="Services\Legado\Html.cs" />
+    <Compile Include="Services\Legado\CssSelector.cs" />
+    <Compile Include="Services\Legado\JsoupRule.cs" />
+    <Compile Include="Services\Legado\XPathQuery.cs" />
+    <Compile Include="Services\Legado\JsonPath.cs" />
+    <Compile Include="Services\Legado\RuleEngine.cs" />
+    <Compile Include="Services\Legado\LegadoUrl.cs" />
+    <Compile Include="Services\Legado\UrlRule.cs" />
+    <Compile Include="Services\Legado\HttpFetcher.cs" />
+    <Compile Include="Services\Legado\NativeImageFetcher.cs" />
+    <Compile Include="Services\ComicImageDownloads.cs" />
+    <Compile Include="Services\ComicImageCache.cs" />
+    <Compile Include="Models\ReadingBookmark.cs" />
+    <Compile Include="Services\ReadingBookmarkStore.cs" />
+    <Compile Include="Services\ChapterTextSearch.cs" />
+    <Compile Include="Views\ReaderPage.Tools.cs" />
+    <Compile Include="Services\Legado\LocalTestSite.cs" />
+    <Compile Include="Services\Legado\LegadoEngine.cs" />
+    <Compile Include="Services\Legado\Js\LegadoJs.cs" />
+    <Compile Include="Services\Legado\Js\JscBackend.cs" />
+    <Compile Include="Services\Legado\LegadoSourceJson.cs" />
+    <Compile Include="Services\Legado\SourcePlaza.cs" />
+    <Compile Include="ViewModels\SearchResultItem.cs" />
+    <Compile Include="Views\ShelfPage.xaml.cs"><DependentUpon>ShelfPage.xaml</DependentUpon></Compile>
+    <Compile Include="Views\SearchPage.xaml.cs"><DependentUpon>SearchPage.xaml</DependentUpon></Compile>
+    <Compile Include="Views\BookDetailPage.xaml.cs"><DependentUpon>BookDetailPage.xaml</DependentUpon></Compile>
+    <Compile Include="Views\BookDetailRequest.cs" />
+    <Compile Include="Views\IShellPage.cs" />
+    <Compile Include="Views\ReaderPage.xaml.cs"><DependentUpon>ReaderPage.xaml</DependentUpon></Compile>
+    <Compile Include="Views\SourcesPage.xaml.cs"><DependentUpon>SourcesPage.xaml</DependentUpon></Compile>
+    <Compile Include="Views\SettingsPage.xaml.cs"><DependentUpon>SettingsPage.xaml</DependentUpon></Compile>
+    <Compile Include="Views\DebugPage.xaml.cs"><DependentUpon>DebugPage.xaml</DependentUpon></Compile>
+  </ItemGroup>
+  <ItemGroup><AppxManifest Include="Package.appxmanifest"><SubType>Designer</SubType></AppxManifest></ItemGroup>
+  <ItemGroup><Content Include="Assets\**\*" /></ItemGroup>
+  <ItemGroup><Content Include="Properties\Default.rd.xml" /></ItemGroup>
+  <ItemGroup Condition="'$(Platform)' == 'ARM'">
+    <Content Include="JsBridge.dll" />
+    <Content Include="icuuc78.dll" />
+    <Content Include="icuin78.dll" />
+    <Content Include="icudt78.dll" />
+    <Content Include="NetBridge.dll" />
+    <Content Include="libcurl.dll" />
+    <Content Include="libssl-3-arm.dll" />
+    <Content Include="libcrypto-3-arm.dll" />
+    <Content Include="z.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></ApplicationDefinition>
+    <Page Include="MainPage.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
+    <Page Include="Views\ShelfPage.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
+    <Page Include="Views\SearchPage.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
+    <Page Include="Views\BookDetailPage.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
+    <Page Include="Views\ReaderPage.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
+    <Page Include="Views\SourcesPage.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
+    <Page Include="Views\SettingsPage.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
+    <Page Include="Views\DebugPage.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
+  </ItemGroup>
+  <ItemGroup><PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.14" /></ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' "><VisualStudioVersion>14.0</VisualStudioVersion></PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+</Project>

@@ -1,0 +1,161 @@
+<Page
+    x:Class="NovReader.Views.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Background="Transparent">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="12,0,12,24" MaxWidth="640" HorizontalAlignment="Stretch">
+
+            <!-- ==================== 外观 ==================== -->
+            <TextBlock Text="外观" Style="{StaticResource SectionTextStyle}" Margin="0,12,0,8"/>
+            <TextBlock Text="应用主题" Style="{StaticResource CaptionTextStyle}"/>
+            <RadioButton x:Name="AppThemeSystem" Content="跟随系统" GroupName="AppTheme" Checked="AppTheme_Changed"/>
+            <RadioButton x:Name="AppThemeLight" Content="浅色" GroupName="AppTheme" Checked="AppTheme_Changed"/>
+            <RadioButton x:Name="AppThemeDark" Content="深色" GroupName="AppTheme" Checked="AppTheme_Changed"/>
+            <TextBlock Margin="0,4,0,0" Style="{StaticResource CaptionTextStyle}" TextWrapping="Wrap"
+                       Text="强调色跟随系统的「个性化 → 颜色」。深色模式会同时把阅读器纸张切到夜间（可在下方单独覆盖）。"/>
+
+            <!-- ==================== 阅读设置 ==================== -->
+            <TextBlock Text="阅读" Style="{StaticResource SectionTextStyle}"/>
+            <Grid>
+                <TextBlock Text="字号" Style="{StaticResource BodyTextStyle}"/>
+                <TextBlock x:Name="FontSizeText" HorizontalAlignment="Right" Style="{StaticResource CaptionTextStyle}"
+                           VerticalAlignment="Center"/>
+            </Grid>
+            <Slider x:Name="FontSizeSlider" Minimum="14" Maximum="40" StepFrequency="1"
+                    AutomationProperties.Name="字号" ValueChanged="FontSizeSlider_ValueChanged"/>
+
+            <Grid>
+                <TextBlock Text="行距" Style="{StaticResource BodyTextStyle}"/>
+                <TextBlock x:Name="LineHeightText" HorizontalAlignment="Right" Style="{StaticResource CaptionTextStyle}"
+                           VerticalAlignment="Center"/>
+            </Grid>
+            <Slider x:Name="LineHeightSlider" Minimum="1.2" Maximum="2.6" StepFrequency="0.1"
+                    AutomationProperties.Name="行距" ValueChanged="LineHeightSlider_ValueChanged"/>
+
+            <Grid>
+                <TextBlock Text="页边距" Style="{StaticResource BodyTextStyle}"/>
+                <TextBlock x:Name="PaddingText" HorizontalAlignment="Right" Style="{StaticResource CaptionTextStyle}"
+                           VerticalAlignment="Center"/>
+            </Grid>
+            <Slider x:Name="PaddingSlider" Minimum="8" Maximum="48" StepFrequency="2"
+                    AutomationProperties.Name="页边距" ValueChanged="PaddingSlider_ValueChanged"/>
+
+            <TextBlock Text="默认纸张" Style="{StaticResource BodyTextStyle}" Margin="0,8,0,8"/>
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="ThemeDay" Style="{StaticResource ThemeSwatchStyle}" Tag="Day"
+                        Background="#FFFFFFFF" Click="Theme_Click">
+                    <TextBlock Text="日间" FontSize="12" Foreground="#FF1A1A1A"/>
+                </Button>
+                <Button x:Name="ThemeSepia" Style="{StaticResource ThemeSwatchStyle}" Tag="Sepia"
+                        Background="#FFF6ECD8" Click="Theme_Click">
+                    <TextBlock Text="羊皮" FontSize="12" Foreground="#FF4A3C2A"/>
+                </Button>
+                <Button x:Name="ThemeGreen" Style="{StaticResource ThemeSwatchStyle}" Tag="Green"
+                        Background="#FFCCE8CF" Click="Theme_Click">
+                    <TextBlock Text="护眼" FontSize="12" Foreground="#FF203026"/>
+                </Button>
+                <Button x:Name="ThemeNight" Style="{StaticResource ThemeSwatchStyle}" Tag="Night"
+                        Background="#FF121212" Click="Theme_Click">
+                    <TextBlock Text="夜间" FontSize="12" Foreground="#FF9E9E9E"/>
+                </Button>
+                <Button x:Name="ThemeBlack" Style="{StaticResource ThemeSwatchStyle}" Tag="Black"
+                        Background="#FF000000" Click="Theme_Click">
+                    <TextBlock Text="纯黑" FontSize="12" Foreground="#FF8A8A8A"/>
+                </Button>
+            </StackPanel>
+
+            <ComboBox x:Name="FontCombo" Header="字体" HorizontalAlignment="Stretch" Margin="0,12,0,0"
+                      SelectionChanged="FontCombo_SelectionChanged"/>
+
+            <TextBlock Text="翻页方式" Style="{StaticResource BodyTextStyle}" Margin="0,12,0,0"/>
+            <RadioButton x:Name="PageTurnPage" Content="翻页（点屏幕两侧翻页）" GroupName="PageTurn"
+                         Checked="PageTurn_Changed"/>
+            <RadioButton x:Name="PageTurnScroll" Content="上下滚动" GroupName="PageTurn"
+                         Checked="PageTurn_Changed"/>
+
+            <CheckBox x:Name="IndentCheck" Content="首行缩进" Margin="0,8,0,0"
+                      Checked="Layout_Changed" Unchecked="Layout_Changed"/>
+            <CheckBox x:Name="BlankLineCheck" Content="段间空行"
+                      Checked="Layout_Changed" Unchecked="Layout_Changed"/>
+            <CheckBox x:Name="KeepAwakeCheck" Content="阅读时屏幕常亮"
+                      Checked="KeepAwake_Changed" Unchecked="KeepAwake_Changed"/>
+
+            <TextBlock x:Name="SettingsStatusText" Margin="0,4,0,0" Style="{StaticResource CaptionTextStyle}"
+                       TextWrapping="Wrap"/>
+
+            <!-- ==================== 搜索、下载与导出 ==================== -->
+            <TextBlock Text="漫画" Style="{StaticResource SectionTextStyle}"/>
+            <ToggleSwitch x:Name="ComicParallelSwitch" Header="并行下载章节图片"
+                          OnContent="已开启" OffContent="按顺序下载" Toggled="ComicParallelSwitch_Toggled"/>
+            <Grid Margin="0,12,0,0">
+                <TextBlock Text="图片下载并发数" Style="{StaticResource BodyTextStyle}"/>
+                <TextBlock x:Name="ComicThreadsText" HorizontalAlignment="Right"
+                           Style="{StaticResource CaptionTextStyle}" VerticalAlignment="Center"/>
+            </Grid>
+            <Slider x:Name="ComicThreadsSlider" Minimum="1" Maximum="8" StepFrequency="1"
+                    AutomationProperties.Name="漫画图片下载并发数" ValueChanged="ComicThreadsSlider_ValueChanged"/>
+            <TextBlock Style="{StaticResource CaptionTextStyle}" TextWrapping="Wrap"
+                       Text="默认同时下载 4 张，优先加载靠前的图片。新打开的漫画章节生效；关闭后逐张下载。"/>
+
+            <TextBlock Text="搜索、下载与导出" Style="{StaticResource SectionTextStyle}"/>
+            <Grid>
+                <TextBlock Text="搜索并发书源数" Style="{StaticResource BodyTextStyle}"/>
+                <TextBlock x:Name="SearchThreadsText" HorizontalAlignment="Right" Style="{StaticResource CaptionTextStyle}"
+                           VerticalAlignment="Center"/>
+            </Grid>
+            <Slider x:Name="SearchThreadsSlider" Minimum="1" Maximum="32" StepFrequency="1"
+                    AutomationProperties.Name="搜索并发书源数" ValueChanged="SearchThreadsSlider_ValueChanged"/>
+            <TextBlock Style="{StaticResource CaptionTextStyle}" TextWrapping="Wrap"
+                       Text="聚合搜索时同时请求多少个书源，结果边搜边显示。书源多时建议 16 以上；每个书源最多等 10 秒。"/>
+
+            <CheckBox x:Name="SkipFailingCheck" Content="跳过近期连续失败的书源" Margin="0,8,0,0"
+                      Checked="SkipFailing_Changed" Unchecked="SkipFailing_Changed"/>
+            <TextBlock x:Name="HealthText" Style="{StaticResource CaptionTextStyle}" TextWrapping="Wrap"/>
+            <Button Content="重新尝试全部书源" Style="{StaticResource LinkButtonStyle}" Padding="0,4"
+                    Click="ResetHealth_Click"/>
+
+            <Grid Margin="0,12,0,0">
+                <TextBlock Text="下载 / 导出线程数" Style="{StaticResource BodyTextStyle}"/>
+                <TextBlock x:Name="ThreadsText" HorizontalAlignment="Right" Style="{StaticResource CaptionTextStyle}"
+                           VerticalAlignment="Center"/>
+            </Grid>
+            <Slider x:Name="ThreadsSlider" Minimum="1" Maximum="16" StepFrequency="1"
+                    AutomationProperties.Name="下载导出线程数" ValueChanged="ThreadsSlider_ValueChanged"/>
+            <TextBlock Style="{StaticResource CaptionTextStyle}" TextWrapping="Wrap"
+                       Text="用于「下载全本」与「导出」。线程越多越快，但更容易被站点限流，建议 4~8。"/>
+
+            <CheckBox x:Name="SkipCachedCheck" Content="跳过已缓存的章节" Margin="0,8,0,0"
+                      Checked="SkipCached_Changed" Unchecked="SkipCached_Changed"/>
+
+            <ComboBox x:Name="ExportFormatCombo" Header="默认导出格式" HorizontalAlignment="Stretch" Margin="0,8,0,0"
+                      SelectionChanged="ExportFormat_Changed"/>
+            <ComboBox x:Name="ExportEncodingCombo" Header="默认导出编码" HorizontalAlignment="Stretch" Margin="0,12,0,0"
+                      SelectionChanged="ExportEncoding_Changed"/>
+            <TextBlock x:Name="ExportHintText" Margin="0,8,0,0" Style="{StaticResource CaptionTextStyle}"
+                       TextWrapping="Wrap"/>
+
+            <!-- ==================== 数据 ==================== -->
+            <TextBlock Text="数据" Style="{StaticResource SectionTextStyle}"/>
+            <TextBlock x:Name="SourceCountText" Style="{StaticResource BodyTextStyle}"/>
+            <TextBlock x:Name="ShelfCountText" Margin="0,4,0,0" Style="{StaticResource CaptionTextStyle}"/>
+            <TextBlock x:Name="CacheCountText" Margin="0,4,0,0" Style="{StaticResource CaptionTextStyle}"/>
+
+            <Button Content="清空本地缓存" Style="{StaticResource SecondaryButtonStyle}" Margin="0,12,0,0"
+                    HorizontalAlignment="Stretch" Click="ClearCache_Click"/>
+            <Button Content="清空书架" Style="{StaticResource SecondaryButtonStyle}" Margin="0,8,0,0"
+                    HorizontalAlignment="Stretch" Click="ClearShelf_Click"/>
+            <Button Content="打开导出目录" Style="{StaticResource SecondaryButtonStyle}" Margin="0,8,0,0"
+                    HorizontalAlignment="Stretch" Click="OpenExportFolder_Click"/>
+
+            <!-- ==================== 关于 ==================== -->
+            <TextBlock Text="关于" Style="{StaticResource SectionTextStyle}"/>
+            <TextBlock Text="NovReader" Style="{StaticResource BodyTextStyle}" FontWeight="SemiBold"/>
+            <TextBlock x:Name="AboutText" Margin="0,4,0,0" Style="{StaticResource CaptionTextStyle}"
+                       TextWrapping="Wrap"/>
+            <TextBlock Margin="0,8,0,0" Style="{StaticResource CaptionTextStyle}" TextWrapping="Wrap"
+                       Text="支持 Legado（阅读）常用书源规则和 JavaScript。部分原版宿主接口、登录和网页验证流程尚未实现，书源兼容情况可在「调试」页查看。"/>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

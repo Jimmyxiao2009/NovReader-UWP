@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" IgnorableNamespaces="uap mp">
+  <Identity Name="NovReader" Publisher="CN=NovReader" Version="1.0.12.1" />
+  <mp:PhoneIdentity PhoneProductId="d6a1c726-4c44-4f41-9d0a-8b7f7d4a0a01" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.10240.0" MaxVersionTested="10.0.19041.0" />
+    <PackageDependency Name="Microsoft.VCLibs.140.00" MinVersion="14.0.26706.0" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" />
+  </Dependencies>
+  <Properties><DisplayName>NovReader</DisplayName><PublisherDisplayName>NovReader</PublisherDisplayName><Logo>Assets\StoreLogo.png</Logo></Properties>
+  <Resources><Resource Language="zh-CN" /></Resources>
+  <Applications><Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="NovReader.App">
+    <uap:VisualElements DisplayName="NovReader" Description="Novel reader" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" BackgroundColor="#0078D7" AppListEntry="default" />
+  </Application></Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+    <!-- 与 Apotheosis 一致：JSC 的 JIT/宿主 thunk 需要可执行内存。 -->
+    <Capability Name="codeGeneration" />
+  </Capabilities>
+</Package>

@@ -1,0 +1,80 @@
+<Page
+    x:Class="NovReader.Views.DebugPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Background="Transparent">
+
+    <Grid>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Pivot>
+        <!-- ==================== 请求 ==================== -->
+        <PivotItem Header="最近请求" Margin="0">
+            <Grid>
+                <ScrollViewer Padding="12,0,12,16">
+                    <StackPanel>
+                        <TextBlock Text="请求详情" Style="{StaticResource SectionTextStyle}" Margin="0,0,0,6"/>
+                        <Border Style="{StaticResource CardBorderStyle}">
+                            <TextBlock x:Name="FetchInfoText" FontFamily="Consolas" FontSize="12"
+                                       TextWrapping="Wrap" Foreground="{StaticResource TextPrimaryBrush}"/>
+                        </Border>
+
+                        <TextBlock Text="规则警告" Style="{StaticResource SectionTextStyle}"/>
+                        <Border Style="{StaticResource CardBorderStyle}">
+                            <TextBlock x:Name="WarningsText" FontFamily="Consolas" FontSize="12"
+                                       TextWrapping="Wrap" Foreground="{StaticResource WarningBrush}"/>
+                        </Border>
+
+                        <TextBlock Text="响应原文（前 4000 字符）" Style="{StaticResource SectionTextStyle}"/>
+                        <Border Style="{StaticResource CardBorderStyle}" Padding="8">
+                            <TextBox x:Name="BodyText" IsReadOnly="True" AcceptsReturn="True"
+                                     TextWrapping="Wrap" FontFamily="Consolas" FontSize="12"
+                                     Height="280" BorderThickness="0" Background="Transparent"/>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </PivotItem>
+
+        <!-- ==================== 操作日志 ==================== -->
+        <PivotItem Header="操作日志" Margin="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Margin="12,0,12,6" Style="{StaticResource CaptionTextStyle}" TextWrapping="Wrap"
+                           Text="记录最近的搜索、导入、打开书籍等操作，排查问题时先看这里。"/>
+
+                <ScrollViewer Grid.Row="1" Padding="12,0,12,16">
+                    <Border Style="{StaticResource CardBorderStyle}">
+                        <TextBlock x:Name="LogText" FontFamily="Consolas" FontSize="12"
+                                   TextWrapping="Wrap" Foreground="{StaticResource TextPrimaryBrush}"/>
+                    </Border>
+                </ScrollViewer>
+            </Grid>
+        </PivotItem>
+
+        <!-- ==================== 环境 ==================== -->
+        <PivotItem Header="环境" Margin="0">
+            <ScrollViewer Padding="12,0,12,16">
+                <Border Style="{StaticResource CardBorderStyle}">
+                    <TextBlock x:Name="EnvText" FontFamily="Consolas" FontSize="12"
+                               TextWrapping="Wrap" Foreground="{StaticResource TextPrimaryBrush}"/>
+                </Border>
+            </ScrollViewer>
+        </PivotItem>
+    </Pivot>
+
+    <CommandBar Grid.Row="1">
+        <AppBarButton Icon="Refresh" Label="刷新" Click="Refresh_Click"/>
+        <AppBarButton Icon="Delete" Label="清空日志" Click="ClearLog_Click"/>
+        <CommandBar.SecondaryCommands>
+            <AppBarButton Label="重新载入书源" Click="ReloadSources_Click"/>
+        </CommandBar.SecondaryCommands>
+    </CommandBar>
+    </Grid>
+</Page>

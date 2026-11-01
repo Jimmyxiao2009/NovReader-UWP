@@ -1,0 +1,214 @@
+<Application
+    x:Class="NovReader.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <!--
+                Windows 10 Mobile 设计语言：直角、扁平、无卡片阴影；浅色为纯白、深色为纯黑背景；
+                强调色跟随系统（ThemeManager 启动时读取 SystemAccentColor 写入下面的画刷）；
+                正文 15px、说明 12px；手机边距 12px；可点区域不小于 40~48px。
+                画刷是 StaticResource，换肤时由 ThemeManager 直接改 Color。
+            -->
+
+            <!-- ============================ 配色 ============================ -->
+            <Color x:Key="AccentColor">#FF0078D7</Color>
+            <SolidColorBrush x:Key="AccentBrush" Color="#FF0078D7"/>
+            <SolidColorBrush x:Key="AccentSoftBrush" Color="#330078D7"/>
+            <SolidColorBrush x:Key="AccentPressedBrush" Color="#FF005A9E"/>
+
+            <SolidColorBrush x:Key="AppBackgroundBrush" Color="#FFFFFFFF"/>
+            <SolidColorBrush x:Key="CardBrush" Color="#FFF2F2F2"/>
+            <SolidColorBrush x:Key="CardHoverBrush" Color="#FFE6E6E6"/>
+            <SolidColorBrush x:Key="DividerBrush" Color="#FFE6E6E6"/>
+            <SolidColorBrush x:Key="SubtleBrush" Color="#FFF2F2F2"/>
+
+            <SolidColorBrush x:Key="TextPrimaryBrush" Color="#FF000000"/>
+            <SolidColorBrush x:Key="TextSecondaryBrush" Color="#FF666666"/>
+            <SolidColorBrush x:Key="TextTertiaryBrush" Color="#FF999999"/>
+            <SolidColorBrush x:Key="TextOnAccentBrush" Color="#FFFFFFFF"/>
+
+            <SolidColorBrush x:Key="SuccessBrush" Color="#FF107C10"/>
+            <SolidColorBrush x:Key="WarningBrush" Color="#FFCA5010"/>
+            <SolidColorBrush x:Key="DangerBrush" Color="#FFE81123"/>
+
+            <!-- 顶栏 / 汉堡菜单面板 -->
+            <SolidColorBrush x:Key="ChromeBrush" Color="#FFF2F2F2"/>
+            <SolidColorBrush x:Key="ChromeBorderBrush" Color="#FFE6E6E6"/>
+
+            <!-- ============================ 尺寸 ============================ -->
+            <x:Double x:Key="RadiusSmall">0</x:Double>
+            <x:Double x:Key="RadiusCard">0</x:Double>
+            <Thickness x:Key="PagePadding">12,8,12,12</Thickness>
+
+            <!-- ============================ 文本样式 ============================ -->
+            <Style x:Key="TitleTextStyle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontWeight" Value="SemiLight"/>
+                <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+                <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+                <Setter Property="TextWrapping" Value="NoWrap"/>
+            </Style>
+
+            <!-- 页面内大标题（书名等），对应 W10M 的 Title 级 -->
+            <Style x:Key="SubheaderTextStyle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="24"/>
+                <Setter Property="FontWeight" Value="SemiLight"/>
+                <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+                <Setter Property="TextWrapping" Value="Wrap"/>
+                <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+            </Style>
+
+            <!-- Pivot 顶部的小标题（应用名 / 书名） -->
+            <Style x:Key="PivotTitleTextStyle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="15"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+                <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+                <Setter Property="TextWrapping" Value="NoWrap"/>
+            </Style>
+
+            <Style x:Key="SectionTextStyle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="15"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+                <Setter Property="Margin" Value="0,20,0,8"/>
+            </Style>
+
+            <!-- 列表项主标题 -->
+            <Style x:Key="ItemTitleTextStyle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="15"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+                <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+                <Setter Property="TextWrapping" Value="NoWrap"/>
+            </Style>
+
+            <Style x:Key="BodyTextStyle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="15"/>
+                <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+                <Setter Property="TextWrapping" Value="Wrap"/>
+            </Style>
+
+            <Style x:Key="CaptionTextStyle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}"/>
+                <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+            </Style>
+
+            <!-- ============================ 按钮 ============================ -->
+            <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="{StaticResource AccentBrush}"/>
+                <Setter Property="Foreground" Value="{StaticResource TextOnAccentBrush}"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Padding" Value="16,6"/>
+                <Setter Property="MinHeight" Value="40"/>
+                <Setter Property="MinWidth" Value="96"/>
+                <Setter Property="FontSize" Value="15"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            </Style>
+
+            <!-- 次要按钮：保留系统默认的灰底按钮外观，只统一尺寸 -->
+            <Style x:Key="SecondaryButtonStyle" TargetType="Button">
+                <Setter Property="Padding" Value="12,6"/>
+                <Setter Property="MinHeight" Value="40"/>
+                <Setter Property="MinWidth" Value="96"/>
+                <Setter Property="FontSize" Value="15"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            </Style>
+
+            <Style x:Key="IconButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="Width" Value="48"/>
+                <Setter Property="Height" Value="48"/>
+                <Setter Property="MinWidth" Value="48"/>
+                <Setter Property="MinHeight" Value="48"/>
+                <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style>
+
+            <Style x:Key="LinkButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Foreground" Value="{StaticResource AccentBrush}"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Padding" Value="8,4"/>
+                <Setter Property="FontSize" Value="15"/>
+                <Setter Property="MinWidth" Value="0"/>
+                <Setter Property="MinHeight" Value="40"/>
+            </Style>
+
+            <!-- ============================ 分组 ============================ -->
+            <!-- W10M 不用卡片：分组只靠标题与留白，这里保留键名供旧页面使用 -->
+            <Style x:Key="CardBorderStyle" TargetType="Border">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="CornerRadius" Value="0"/>
+                <Setter Property="Padding" Value="0"/>
+            </Style>
+
+            <!-- ============================ 列表项容器 ============================ -->
+            <Style x:Key="PlainListViewItemStyle" TargetType="ListViewItem">
+                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="12,8"/>
+                <Setter Property="MinHeight" Value="48"/>
+            </Style>
+
+            <Style x:Key="PlainGridViewItemStyle" TargetType="GridViewItem">
+                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="Margin" Value="0"/>
+                <Setter Property="MinHeight" Value="0"/>
+                <Setter Property="MinWidth" Value="0"/>
+            </Style>
+
+            <!-- ============================ 汉堡菜单 ============================ -->
+            <Style x:Key="NavListItemStyle" TargetType="ListViewItem">
+                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="MinHeight" Value="48"/>
+                <Setter Property="Height" Value="48"/>
+            </Style>
+
+            <Style x:Key="TabButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Padding" Value="4,6"/>
+                <Setter Property="MinWidth" Value="0"/>
+                <Setter Property="MinHeight" Value="0"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            </Style>
+
+            <!-- ============================ 阅读设置面板 ============================ -->
+            <Style x:Key="PanelStyle" TargetType="Border">
+                <Setter Property="Background" Value="{StaticResource ChromeBrush}"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="CornerRadius" Value="0"/>
+                <Setter Property="Padding" Value="12"/>
+            </Style>
+
+            <!-- ============================ 主题色块（阅读器） ============================ -->
+            <Style x:Key="ThemeSwatchStyle" TargetType="Button">
+                <Setter Property="Width" Value="52"/>
+                <Setter Property="Height" Value="48"/>
+                <Setter Property="Margin" Value="0,0,8,0"/>
+                <Setter Property="BorderThickness" Value="2"/>
+                <Setter Property="BorderBrush" Value="{StaticResource DividerBrush}"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="MinWidth" Value="0"/>
+                <Setter Property="MinHeight" Value="0"/>
+            </Style>
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

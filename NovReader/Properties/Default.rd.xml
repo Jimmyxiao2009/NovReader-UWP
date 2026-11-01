@@ -1,0 +1,8 @@
+<Directives xmlns="http://schemas.microsoft.com/netfx/2013/01/metadata">
+  <Application>
+    <Assembly Name="NovReader">
+      <!-- These properties are reached by the bookmark ListView's XAML bindings. -->
+      <Type Name="NovReader.Models.ReadingBookmark" Dynamic="Required Public" />
+    </Assembly>
+  </Application>
+</Directives>
